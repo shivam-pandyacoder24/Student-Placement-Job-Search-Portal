@@ -518,6 +518,100 @@ main select:hover {
   accent-color: var(--ink);
 }
 
+/* ---------- Overview ---------- */
+
+.view-home h1 {
+  max-width: 16ch;
+}
+
+.home-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+}
+
+a.button {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+a.button:hover {
+  color: #fff;
+}
+
+a.button.is-quiet:hover {
+  color: var(--ink);
+}
+
+.demo-list {
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+}
+
+.demo {
+  display: grid;
+  gap: 0.6rem 1.5rem;
+  padding: 1rem 1.1rem;
+}
+
+.demo + .demo {
+  border-top: 1px solid var(--rule);
+}
+
+.demo h3 {
+  font-family: var(--display);
+  font-size: 1.1875rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.demo-what p {
+  max-width: 60ch;
+  margin-top: 0.15rem;
+  color: var(--slate);
+}
+
+.demo-uses {
+  font-weight: 600;
+}
+
+.demo .button {
+  justify-self: start;
+}
+
+@media (min-width: 46rem) {
+  .demo {
+    grid-template-columns: minmax(0, 1fr) 12.5rem auto;
+    align-items: center;
+  }
+}
+
+.points {
+  display: grid;
+  gap: 0.8rem;
+  max-width: 68ch;
+}
+
+.points li {
+  position: relative;
+  padding-left: 1.4rem;
+}
+
+.points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 0.6rem;
+  height: 0.6rem;
+  background: var(--marigold);
+  border: 1.5px solid var(--ink);
+  border-radius: 2px;
+}
+
 /* ---------- Job list ---------- */
 
 .job-list {
@@ -649,7 +743,7 @@ main select:hover {
   display: inline;
   padding: 0 0.3rem;
   margin-left: -0.3rem;
-  background: linear-gradient(transparent 52%, var(--marigold) 52%, var(--marigold) 92%, transparent 92%);
+  background: linear-gradient(transparent 58%, var(--marigold) 58%, var(--marigold) 94%, transparent 94%);
   font-family: var(--display);
   font-size: 1.25rem;
   font-weight: 680;

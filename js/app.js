@@ -15,7 +15,10 @@
   const candidateSelect = document.getElementById('candidate-select');
   const toast = document.getElementById('toast');
 
+  const REPO_URL = 'https://github.com/shivam-pandyacoder24/Student-Placement-Job-Search-Portal';
+
   const ROUTES = {
+    home: { title: 'Overview', render: renderHome },
     jobs: { title: 'Jobs', render: renderJobs },
     categories: { title: 'Categories', render: renderCategories },
     applications: { title: 'My applications', render: renderApplications },
@@ -25,7 +28,7 @@
   };
 
   const state = {
-    route: 'jobs',
+    route: 'home',
     candidateId: DATA.candidates[0].id,
     jobs: { query: '', field: 'either', method: 'linear', sortKey: 'deadline', direction: 'asc', algorithm: 'merge' },
     category: 'All jobs',
@@ -167,6 +170,129 @@
       html += '</span></li>';
     }
     return html + '</ol>';
+  }
+
+  /* ---------- Overview: what this is, and one-click demos ---------- */
+
+  /*
+   * Each demo sets up one screen so a first-time visitor sees a structure
+   * at work without having to know what to type.
+   */
+  const DEMOS = {
+    route: {
+      go: 'skills',
+      setup: function () {
+        state.skills = { from: 'Python', to: 'AI Engineer' };
+      },
+    },
+    search: {
+      title: 'Search with binary search',
+      text: 'Looks for roles that start with “data” and marks which of the job records each step compared.',
+      uses: 'Searching',
+      go: 'jobs',
+      setup: function () {
+        state.jobs = { query: 'data', field: 'role', method: 'binary', sortKey: 'deadline', direction: 'asc', algorithm: 'merge' };
+      },
+    },
+    sort: {
+      title: 'Sort every job by salary',
+      text: 'Puts all the openings in order, highest pay first, and counts the comparisons that merge, quick, insertion and bubble sort each needed.',
+      uses: 'Arrays, sorting',
+      go: 'jobs',
+      setup: function () {
+        state.jobs = { query: '', field: 'either', method: 'linear', sortKey: 'salary', direction: 'desc', algorithm: 'merge' };
+      },
+    },
+    lookup: {
+      title: 'Look up one job two ways',
+      text: 'Finds job J1705 in a hash table and in a binary search tree, and draws the path each one took.',
+      uses: 'Hashing, binary search tree',
+      go: 'lookup',
+      setup: function () {
+        state.lookup.jobId = 'J1705';
+      },
+    },
+    category: {
+      title: 'Open a branch of the category tree',
+      text: 'Selects Machine learning and collects every job filed under it and under its sub-categories.',
+      uses: 'General tree',
+      go: 'categories',
+      setup: function () {
+        state.category = 'Machine learning';
+      },
+    },
+    apply: {
+      title: 'Apply to three jobs, then undo',
+      text: 'Adds three sample applications so you can watch them join the history, the undo stack and the review queue.',
+      uses: 'Linked list, stack, queue',
+      go: 'applications',
+      setup: function () {
+        const candidate = activeCandidate();
+        let added = 0;
+        [1771, 1893, 1640].forEach(function (jobId) {
+          if (portal.apply(candidate.id, jobId).ok) added++;
+        });
+        save();
+        showToast(added === 0
+          ? 'Those three applications are already in your history.'
+          : 'Added ' + count(added, 'sample application', 'sample applications') + ' for ' + candidate.name + '. Try Undo and Review.');
+      },
+    },
+  };
+
+  function renderHome() {
+    const graph = portal.graph;
+    const route = graph.shortestPath('Python', 'AI Engineer');
+    let steps = '';
+    for (let i = 0; i < route.path.length; i++) {
+      steps += '<li class="route-step">' + esc(route.path[i]) + '</li>';
+    }
+
+    let demos = '';
+    ['search', 'sort', 'lookup', 'category', 'apply'].forEach(function (key) {
+      const demo = DEMOS[key];
+      demos += '<li class="demo">' +
+        '<div class="demo-what"><h3>' + esc(demo.title) + '</h3><p>' + esc(demo.text) + '</p></div>' +
+        '<p class="demo-uses"><span class="fact-label">Uses</span>' + esc(demo.uses) + '</p>' +
+        '<button type="button" class="button" data-action="demo" data-demo="' + key + '" aria-label="Show me: ' + esc(demo.title) + '">Show me</button>' +
+      '</li>';
+    });
+
+    main.innerHTML =
+      '<section class="view view-home">' +
+        '<header class="view-head">' +
+          '<h1>A placement portal that shows its working</h1>' +
+          '<p class="lede">Search jobs and internships, apply, and track your applications. Every feature runs on a data structure ' +
+            'written from scratch, and each screen draws that structure doing the job.</p>' +
+          '<p class="home-actions"><a class="button" href="#jobs">Search the jobs</a>' +
+            '<a class="button is-quiet" href="' + REPO_URL + '">Read the code on GitHub</a></p>' +
+        '</header>' +
+
+        '<section class="workings" aria-labelledby="example-title">' +
+          '<h2 id="example-title">For example: Python to AI Engineer</h2>' +
+          '<ol class="route">' + steps + '</ol>' +
+          '<p>The skill map is a graph of ' + graph.nodeCount + ' skills, fields, roles and companies joined by ' + graph.edgeCount +
+            ' links. Breadth-first search found this route, the shortest of all, after exploring ' + route.explored + ' of them.</p>' +
+          '<button type="button" class="button" data-action="demo" data-demo="route">Open the skill map</button>' +
+        '</section>' +
+
+        '<section aria-labelledby="demos-title">' +
+          '<h2 id="demos-title">See the rest in one click</h2>' +
+          '<ul class="demo-list">' + demos + '</ul>' +
+        '</section>' +
+
+        '<section aria-labelledby="shows-title">' +
+          '<h2 id="shows-title">What this project shows</h2>' +
+          '<ul class="points">' +
+            '<li><strong>Ten data structures and algorithms, written by hand.</strong> Arrays, searching, sorting, a linked list, a stack, ' +
+              'a queue, two trees, a graph and hashing. None of them use JavaScript’s built-in sort, Map or Set. ' +
+              '<a href="#structures">See where each one is used</a>.</li>' +
+            '<li><strong>No frameworks or libraries.</strong> Plain HTML, CSS and JavaScript with no build step. It runs straight from a file.</li>' +
+            '<li><strong>Tested.</strong> 39 automated tests cover every structure and the portal logic, including checks against random input.</li>' +
+            '<li><strong>Built to be used.</strong> It works with a keyboard alone, fits a phone screen, and remembers your applications in the browser.</li>' +
+          '</ul>' +
+        '</section>' +
+      '</section>';
   }
 
   /* ---------- Jobs: array, searching, sorting ---------- */
@@ -952,7 +1078,7 @@
 
   function routeFromHash() {
     const name = window.location.hash.replace('#', '');
-    return ROUTES[name] ? name : 'jobs';
+    return ROUTES[name] ? name : 'home';
   }
 
   function onRouteChange(moveFocus) {
@@ -1044,6 +1170,11 @@
     } else if (action === 'target') {
       state.skills.to = button.getAttribute('data-node');
       render(selectorFor(button));
+    } else if (action === 'demo') {
+      const demo = DEMOS[button.getAttribute('data-demo')];
+      if (!demo) return;
+      demo.setup();
+      window.location.hash = demo.go; // the hashchange handler draws the screen
     } else if (action === 'view-as') {
       setCandidate(button.getAttribute('data-candidate'));
     }

@@ -1,18 +1,36 @@
 # Student Placement & Job Search Portal
 
-A student-facing website for searching internships and jobs and keeping track of applications. Every feature runs on a data structure or algorithm written by hand for this project, and each screen draws the structure that produced what you see.
+A website where students search internships and jobs, apply, and track their applications. Every feature runs on a data structure or algorithm written from scratch, and each screen draws that structure doing the job.
 
-**Live site:** https://shivam-pandyacoder24.github.io/Student-Placement-Job-Search-Portal/ (served by GitHub Pages; see [Deploying](#deploying))
+**[Open the live site](https://shivam-pandyacoder24.github.io/Student-Placement-Job-Search-Portal/)**
+
+![Overview screen with an example route from Python to AI Engineer](screenshots/overview.png)
+
+## In 30 seconds
+
+- **What it is:** a placement portal with 36 sample openings, a category browser, application tracking with undo, a skill-to-career map and lookup by ID.
+- **What makes it different:** it shows its working. Search for a job and it marks which records were compared. Apply and you see the linked list, the undo stack and the review queue change.
+- **How it is built:** plain HTML, CSS and JavaScript. No frameworks, no libraries, no build step.
+- **How it is checked:** 39 automated tests cover every data structure and the portal logic.
+
+The overview screen has one-click demos, so you can see each part without knowing what to type.
 
 All companies, openings and candidates are sample data made up for this project. Nothing on the site is a real job offer.
 
+## Screenshots
+
+| | |
+| --- | --- |
+| ![Binary search marking the records it compared](screenshots/jobs-search.png) **Jobs.** Binary search for "data", with the records it compared marked in order, and the cost of four sorting algorithms side by side. | ![The skill map with the shortest route highlighted](screenshots/skill-map.png) **Skill map.** A graph of 47 skills, fields, roles and companies. Breadth-first search finds the shortest route between any two. |
+| ![Application history, undo stack and review queue](screenshots/applications.png) **My applications.** History as a linked list, recent activity as a stack with undo, and a review queue shared by all candidates. | ![A job found in a hash table and a binary search tree](screenshots/find-by-id.png) **Find by ID.** The same job found two ways: one hash into a bucket, or a path down a binary search tree. |
+
 ## What you can do
 
-- **Jobs** – search 36 openings by company or role, and sort them by deadline, salary, company or role. A panel shows which records the search touched and how many comparisons each sorting algorithm needed.
+- **Jobs** – search by company or role with linear or binary search, and sort by deadline, salary, company or role with merge, quick, insertion or bubble sort.
 - **Categories** – browse a category tree. Choosing a category lists every job in it and in the categories below it.
-- **My applications** – apply, withdraw and undo. See your history as a linked list, your recent activity as a stack, and the placement cell's review queue shared by all candidates.
-- **Skill map** – pick a skill and a destination to get the shortest route, for example `Python → Data Science → Machine Learning → AI Engineer`, drawn on the full graph.
-- **Find by ID** – look up a job or candidate by ID and compare the hash table lookup with the binary search tree search. List all job IDs in a range. Add yourself as a candidate.
+- **My applications** – apply, withdraw and undo. Review the queue to see who is shortlisted and why.
+- **Skill map** – pick a skill and a destination to get the shortest route, for example `Python → Data Science → Machine Learning → AI Engineer`.
+- **Find by ID** – look up a job or candidate by ID, list all job IDs in a range, and add yourself as a candidate.
 - **Data structures** – a table of every structure, where it is used and which file it lives in.
 
 ## How each data structure is used
@@ -53,7 +71,7 @@ The structures also build on each other: the graph stores its adjacency lists in
 
 ## Running it
 
-No build step and nothing to install. Either:
+Nothing to install. Either:
 
 - open `index.html` in a browser, or
 - serve the folder and visit http://localhost:8000:
@@ -84,6 +102,7 @@ js/data/                sample jobs, categories, skill map and candidates
 js/portal.js            portal logic: puts each structure to work, no page code
 js/app.js               builds each screen and draws the structures
 tests/                  tests for js/dsa/ and js/portal.js
+screenshots/            images used in this README
 ```
 
 A few details worth knowing when reading the code:
@@ -96,10 +115,8 @@ A few details worth knowing when reading the code:
 
 ## Deploying
 
-The site is plain HTML, CSS and JavaScript, so GitHub Pages can serve it straight from this repository:
+The site is served by GitHub Pages from the root of the `main` branch (**Settings → Pages → Deploy from a branch → main, / (root)**). Every push to `main` updates the live site within a minute or two.
 
-1. On GitHub, open **Settings → Pages**.
-2. Under **Build and deployment**, set **Source** to **Deploy from a branch**.
-3. Choose branch **main** and folder **/ (root)**, then **Save**.
+## Author
 
-After a minute or two the site is available at the link at the top of this file.
+Built by [shivam-pandyacoder24](https://github.com/shivam-pandyacoder24) as a college data structures project.
