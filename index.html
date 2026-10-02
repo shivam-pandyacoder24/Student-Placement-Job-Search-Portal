@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Placement Portal</title>
+  <meta name="description" content="Search internships and jobs, apply, and track your applications. A college project built on hand-written data structures and algorithms.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231a1f3d'/%3E%3Cpath d='M9 23V9h8a5 5 0 0 1 0 10h-4.5' fill='none' stroke='%23f2b01e' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <a class="brand" href="#jobs">
+      <svg class="brand-mark" viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">
+        <rect width="32" height="32" rx="7" fill="currentColor" opacity=".14"/>
+        <path d="M9 23V9h8a5 5 0 0 1 0 10h-4.5" fill="none" stroke="#f2b01e" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Placement Portal</span>
+    </a>
+    <div class="viewer">
+      <label for="candidate-select">Viewing as</label>
+      <select id="candidate-select"></select>
+    </div>
+  </header>
+
+  <div class="shell">
+    <nav class="rail" aria-label="Sections">
+      <a href="#jobs" data-route="jobs">Jobs</a>
+      <a href="#categories" data-route="categories">Categories</a>
+      <a href="#applications" data-route="applications">My applications <span class="rail-count" id="application-count"></span></a>
+      <a href="#skills" data-route="skills">Skill map</a>
+      <a href="#lookup" data-route="lookup">Find by ID</a>
+      <a href="#structures" data-route="structures">Data structures</a>
+    </nav>
+
+    <main id="main" tabindex="-1">
+      <noscript>
+        <p class="notice">This site needs JavaScript. Every search, sort and lookup runs in your browser.</p>
+      </noscript>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <p>Every company, opening and candidate on this site is sample data made up for a college data structures project. Nothing here is a real job offer.</p>
+    <p>What you do here is saved only in this browser. <button type="button" class="link-button" id="reset-data">Clear my saved data</button></p>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Data structures and algorithms -->
+  <script src="js/dsa/dynamic-array.js"></script>
+  <script src="js/dsa/search.js"></script>
+  <script src="js/dsa/sort.js"></script>
+  <script src="js/dsa/linked-list.js"></script>
+  <script src="js/dsa/stack.js"></script>
+  <script src="js/dsa/queue.js"></script>
+  <script src="js/dsa/hash-table.js"></script>
+  <script src="js/dsa/category-tree.js"></script>
+  <script src="js/dsa/bst.js"></script>
+  <script src="js/dsa/graph.js"></script>
+  <!-- Sample data -->
+  <script src="js/data/jobs.js"></script>
+  <script src="js/data/categories.js"></script>
+  <script src="js/data/skill-graph.js"></script>
+  <script src="js/data/candidates.js"></script>
+  <!-- Portal logic, then the page -->
+  <script src="js/portal.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
